@@ -1,6 +1,6 @@
 /*
  * OpenRPT report writer and rendering engine
- * Copyright (C) 2001-2012 by OpenMFG, LLC
+ * Copyright (C) 2001-2014 by OpenMFG, LLC
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,7 @@ class login : public QDialog, public Ui::login
     Q_OBJECT
 
   public:
-    login(QWidget* parent = 0, const char* name = 0, bool modal = false, Qt::WFlags fl = 0);
+    login(QWidget* parent = 0, const char* name = 0, bool modal = false, Qt::WindowFlags fl = 0);
     ~login();
 
     QString _databaseURL;

@@ -1,6 +1,6 @@
 #
 # OpenRPT report writer and rendering engine
-# Copyright (C) 2001-2012 by OpenMFG, LLC
+# Copyright (C) 2001-2014 by OpenMFG, LLC
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,12 +30,13 @@ OBJECTS_DIR = tmp
 MOC_DIR     = tmp
 UI_DIR      = tmp
 
-LIBS += -L../../lib -lcommon
+QMAKE_LIBDIR = ../../lib $$QMAKE_LIBDIR
+LIBS += -lopenrptcommon
 
 win32-msvc* {
-  PRE_TARGETDEPS += ../../lib/common.lib
+  PRE_TARGETDEPS += ../../lib/openrptcommon.$${LIBEXT}
 } else {
-  PRE_TARGETDEPS += ../../lib/libcommon.a
+  PRE_TARGETDEPS += ../../lib/libopenrptcommon.$${LIBEXT}
 }
 
 DESTDIR = ../../bin

@@ -1,6 +1,6 @@
 #
 # OpenRPT report writer and rendering engine
-# Copyright (C) 2001-2012 by OpenMFG, LLC
+# Copyright (C) 2001-2015 by OpenMFG, LLC
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,9 +24,36 @@
 # of the projects can be place.
 #
 
-CONFIG += release
+CONFIG += release dll
+# TEMPORARY HACK
+win32 {
+  CONFIG -= dll
+  CONFIG += staticlib
+}
+macx {
+  CONFIG -= dll
+  CONFIG += staticlib
+}
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
+
+LIBEXT = $${QMAKE_EXTENSION_SHLIB}
+win32-g++:LIBEXT = a
+macx:LIBEXT      = a
+isEmpty( LIBEXT ) {
+  win32:LIBEXT = a
+  unix:LIBEXT  = so
+}
+
+LIBDMTX = -ldmtx
+
+# OpenRPT includes an embedded copy of libdmtx for platforms where this
+# library is not already available. Set the environment variable
+# USE_SYSTEM_DMTX in the build env to build against the system library.
+USE_SYSTEM_DMTX = $$(USE_SYSTEM_DMTX)
+isEmpty( USE_SYSTEM_DMTX ) {
+  CONFIG += bundled_dmtx
+}
 
 macx:exists(macx.pri) {
   include(macx.pri)
